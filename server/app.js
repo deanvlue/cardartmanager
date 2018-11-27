@@ -26,6 +26,15 @@ const allowCrossDomain = ((req,res,next)=>{
 app.use(allowCrossDomain);
 
 // define routes
+
+router.get('/',(req,res)=>{
+    db.selectAll((err, rows)=>{
+        if(err) return res.status(500).send(err);
+        res.status(200).send(rows);
+    })
+})
+
+
 router.post('/register',(req,res)=>{
     db.insert([
         req.body.name,
@@ -62,6 +71,7 @@ router.post('/register-admin',(req,res)=>{
 
 router.post('/login',(req,res)=>{
     db.selectByEmail(req.body.email, (err,user)=>{
+        //console.log(req.body.email);
         if(err) return res.status(500).send("Error on the server");
         if(!user) return res.status(404).send('No user found');
         let passwordIsValid = bcrypt.compareSync(req.body.password, user.user_pass);

@@ -20,7 +20,7 @@ class Db{
         return this.db.run(sql);
     }
 
-    selectByEmail(user, callback){
+    selectByEmail(email, callback){
         return this.db.get(
             `SELECT * FROM user WHERE email = ?`,
             [email],(err,row)=>{
