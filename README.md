@@ -19,3 +19,8 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# Obtained from this tutorial
+https://scotch.io/tutorials/vue-authentication-and-route-handling-using-vue-router
+
+
