@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
@@ -5,8 +7,8 @@ import HelloWorld from '@/components/HelloWorld'
 
 import Login from '@/components/Login'
 import Register from '@/components/Register'
-import UserBoard from '@/components/UserBoard'
-import Admin from '@/components/Admin'
+//import UserBoard from '@/components/UserBoard'
+//import Admin from '@/components/Admin'
 
 Vue.use(Router)
 
@@ -33,7 +35,7 @@ let router = new Router({
         guest: true
       }
     },
-    {
+   /* {
       path:'/dashboard',
       name: 'userboard',
       component: UserBoard,
@@ -49,7 +51,7 @@ let router = new Router({
         requiresAuth: true,
         is_admin: true
       }
-    },
+    },*/
   ]
 })
 
