@@ -22,8 +22,10 @@
 
 <script>
 /* eslint-disable */
+
+//import axios from 'axios'
+
 export default {
-  name: 'Login',
   data () {
     return {
       email: "",
@@ -35,10 +37,12 @@ export default {
     handleSubmit(e){
       e.preventDefault()
       if(this.password.length > 0){
+
         this.$http.post('http://localhost:3000/login',{
           email: this.email,
           password: this.password
         })
+        
         .then(response=>{
           let is_admin = response.data.user.is_admin
           localStorage.setItem('user', JSON.stringify(response.data.user))
@@ -47,20 +51,20 @@ export default {
           if(localStorage.getItem('jwt') !== null){
             this.$emit('loggedIn')
             if(this.$route.params.nextUrl !== null){
+              console.log(this.$route)
+              console.log(this.$router)
               this.$router.push(this.$route.params.nextUrl)
+
             }else{
               if(is_admin==1){
-                this.$router.push('admin')
+                this.$router.push('/admin')
               }else{
-                this.$router.push('dashboard')
+                this.$router.push('/dashboard')
               }
             }
           }
-
         })
-        .catch(function(error){
-          console.error(error.response);
-        })
+        .catch((e)=>console.error(e))
       }
     }
   }

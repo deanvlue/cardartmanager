@@ -23,4 +23,8 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 # Obtained from this tutorial
 https://scotch.io/tutorials/vue-authentication-and-route-handling-using-vue-router
 
+# for axios connection i based on this docuemntation
+https://alligator.io/vuejs/rest-api-axios/
+
+
 

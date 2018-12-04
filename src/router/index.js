@@ -6,9 +6,9 @@ import HelloWorld from '@/components/HelloWorld'
 
 
 import Login from '@/components/Login'
-import Register from '@/components/Register'
-//import UserBoard from '@/components/UserBoard'
-//import Admin from '@/components/Admin'
+//import Register from '@/components/Register'
+import UserBoard from '@/components/UserBoard'
+import Admin from '@/components/Admin'
 
 Vue.use(Router)
 
@@ -28,14 +28,6 @@ let router = new Router({
       }
     },
     {
-      path:'/register',
-      name: 'register',
-      component: Register,
-      meta: {
-        guest: true
-      }
-    },
-   /* {
       path:'/dashboard',
       name: 'userboard',
       component: UserBoard,
@@ -51,7 +43,7 @@ let router = new Router({
         requiresAuth: true,
         is_admin: true
       }
-    },*/
+    },
   ]
 })
 
@@ -77,8 +69,10 @@ router.beforeEach((to, from , next)=>{
     }
   }else if(to.matched.some(record=> record.meta.guest)){
     if(localStorage.getItem('jwt')==null){
+      console.log("Tratanod de hacer el Next")
       next()
     }else{
+      console.log("Llamando userboard")
       next({name: 'userboard'})
     }
   }else{
