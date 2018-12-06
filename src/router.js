@@ -3,7 +3,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store'
 import Login from './components/Login.vue'
-import Secure from './components/Secure.vue'
+//import Secure from './components/Secure.vue'
+import Arts from './components/Arts.vue'
+import Cards from './components/Cards.vue'
 
 import Home from './components/HelloWorld.vue'
 
@@ -24,9 +26,17 @@ let router = new Router({
 
         },
         {
-            path: '/secure',
-            name:'secure',
-            component: Secure,
+            path: '/arts',
+            name:'arts',
+            component: Arts,
+            meta:{
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/cards',
+            name:'cards',
+            component: Cards,
             meta:{
                 requiresAuth: true
             }

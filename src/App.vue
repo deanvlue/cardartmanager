@@ -3,8 +3,9 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> |
-      <router-link v-if="isLoggedIn" to="/secure">Seguro</router-link>
-      <span v-if="isLoggedIn"> | <a @click="logout">logout</a></span>
+      <router-link v-if="isLoggedIn" to="/cards">Tarjetas</router-link> <span v-if="isLoggedIn"> | </span>
+      <router-link v-if="isLoggedIn" to="/arts">Alta de Artes</router-link> <span v-if="isLoggedIn"> | </span>
+      <span v-if="isLoggedIn"> <a @click="logout">logout</a></span>
     </div>
     <router-view/>
   </div>
