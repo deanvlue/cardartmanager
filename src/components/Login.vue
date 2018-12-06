@@ -1,20 +1,22 @@
 <template>
   <div>
     <h4>Login</h4>
-    <form class="login" @submit.prevent="login">
-      <label for="email">Usuario/Correo:</label>
-      <div>
-        <input id="email" type="email" v-model="email" required autofocus>
+    <form class="container login" @submit.prevent="login">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <label for="email">Usuario/Correo:</label>
+        </span>
+        <input class="form-control" placeholder="Nombre de usuario" id="email" type="email" v-model="email" required autofocus>
       </div>
-      <div>
-        <label for="password"> Password:</label>
-        <div>
-          <input id="password" type="password" v-model="password" required>
-        </div>
+      <div class="input-group">
+        <span class="input-group-addon">
+          <label for="password"> Password:</label>
+        </span>
+          <input class="form-control" placeholder="Password" id="password" type="password" v-model="password" required>
       </div>
 
       <div>
-        <button type="submit"> Login</button>
+        <button class="btn btn-primary" type="submit"> Login</button>
       </div>
     </form>
   </div>
@@ -60,5 +62,9 @@ li {
 }
 a {
   color: #42b983;
+}
+.login{
+  width: 80%;
+
 }
 </style>

@@ -1,7 +1,11 @@
 <template>
   <div class="hello">
-    <h1>This is homepage</h1>
-    <h2>{{ msg }}</h2>
+    <h1>Starbucks Card Art Manager</h1>
+    <ul>
+    <span v-if="!isLoggedIn"> <li><a href="/login">Login</a></li></span>
+      <li><a href="/cards">Alta de tarjetas</a></li>
+      <li><a href="/arts">Imágenes de tarjetas</a></li>
+    </ul>
   </div>
 </template>
 

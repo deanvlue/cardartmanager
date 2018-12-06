@@ -1,11 +1,23 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Login</router-link> |
-      <router-link v-if="isLoggedIn" to="/cards">Tarjetas</router-link> <span v-if="isLoggedIn"> | </span>
-      <router-link v-if="isLoggedIn" to="/arts">Alta de Artes</router-link> <span v-if="isLoggedIn"> | </span>
-      <span v-if="isLoggedIn"> <a @click="logout">logout</a></span>
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active"> 
+          <router-link to="/">Home</router-link> 
+        </li>
+          <li role="presentation">
+            <span v-if="!isLoggedIn"><router-link to="/login">Login</router-link></span>
+          </li>
+          <li role="presentation">
+            <router-link v-if="isLoggedIn" to="/cards">Configurar Bines</router-link> <span v-if="isLoggedIn"></span>
+          </li>
+          <li role="presentation">
+            <router-link v-if="isLoggedIn" to="/arts">Alta de Artes</router-link> <span v-if="isLoggedIn"></span>
+          </li>
+          <li role="presentation">
+            <span v-if="isLoggedIn"> <a @click="logout">logout</a></span>
+          </li>
+      </ul>
     </div>
     <router-view/>
   </div>
