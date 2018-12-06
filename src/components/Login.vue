@@ -3,20 +3,14 @@
     <h4>Login</h4>
     <form class="container login" @submit.prevent="login">
       <div class="input-group">
-        <span class="input-group-addon">
-          <label for="email">Usuario/Correo:</label>
-        </span>
-        <input class="form-control" placeholder="Nombre de usuario" id="email" type="email" v-model="email" required autofocus>
+        <input class="login_input" placeholder="Nombre de usuario" id="email" type="email" v-model="email" required autofocus>
       </div>
       <div class="input-group">
-        <span class="input-group-addon">
-          <label for="password"> Password:</label>
-        </span>
-          <input class="form-control" placeholder="Password" id="password" type="password" v-model="password" required>
+          <input class="login_input" placeholder="Password" id="password" type="password" v-model="password" required>
       </div>
-
+      <br>
       <div>
-        <button class="btn btn-primary" type="submit"> Login</button>
+        <button class="btn btn-primary button_green" type="submit"> Login</button>
       </div>
     </form>
   </div>
@@ -64,7 +58,44 @@ a {
   color: #42b983;
 }
 .login{
-  width: 80%;
+  max-width: 350px;
+  position: relative;
+  width: 100%;
 
+}
+
+.login_input{
+  font-family: Lato-Light,sans-serif;
+  font-size: 13px;
+  background: none;
+  display: block;
+  border: 0;
+     border-bottom-color: currentcolor;
+    border-bottom-style: none;
+    border-bottom-width: 0px;
+
+  border-bottom: 1px dotted #3d3a35;
+  min-width: 350px;
+  padding: 3px 5px;
+  margin: 28px 0 0;
+  outline: none;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.button_green{
+  outline: none;
+background-color: transparent;
+border: none;
+cursor: pointer;
+font-family: Lato-Light,sans-serif;
+height: 45px;
+padding: 0 30px;
+text-transform: uppercase;
+font-size: 14px;
+background: #006341;
+color: #fff;
+letter-spacing: 1px;
+transition: background-color .2s ease;
 }
 </style>

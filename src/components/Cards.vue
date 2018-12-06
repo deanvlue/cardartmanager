@@ -4,13 +4,11 @@
       <h2>Configuración de Bines</h2>
       <label for="inicialBin" class="">Bin Inicial</label>
       <input type="text" id="inicialBin" class="form-control" placeholder="6666666666666666" required autofocus>
-      
       <label for="finalBin" class="">Bin Final</label>
       <input type="text" id="finalBin" class="form-control" placeholder="9999999999999999" required>
-      
       <label for="promo" class="">Promo</label>
       <input type="text" id="promo" class="form-control" placeholder="12345" required>
-      <br>      
+      <br>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Guardar</button>
     </form>
 

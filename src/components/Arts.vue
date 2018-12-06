@@ -33,4 +33,33 @@ li {
 a {
   color: #42b983;
 }
+
+
+.dropbox{
+  outline: 2px dashed grey; /* dashbox */
+  outline-offset: -10px;
+  background: rgb(223,221,221);
+  color: #030303;
+  padding: 10px 10px;
+  min-height: 200px; /* elongate on height */
+  position: relative;
+  cursor: pointer;
+}
+
+.dropbox:hover{
+  background: rgb(110,110,110);
+}
+
+.dropbox p{
+  font-size: 1.2em;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.input-file{
+  opacity: 0; /* invsisible pero ahistá*/
+  width: 99%;
+  height: 200px;
+  position: absolute;
+}
 </style>
