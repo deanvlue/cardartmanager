@@ -1,11 +1,6 @@
 <template>
   <div class="hello">
-    <h1>Starbucks Card Art Manager</h1>
-    <ul>
-    <span v-if="!isLoggedIn"> <li><a href="/login">Login</a></li></span>
-      <li><a href="/cards">Alta de tarjetas</a></li>
-      <li><a href="/arts">Imágenes de tarjetas</a></li>
-    </ul>
+    <img src="../assets/logo-card-mx.png" alt="">
   </div>
 </template>
 
