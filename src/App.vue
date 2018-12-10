@@ -20,13 +20,13 @@
             <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
           </li>
           <li role="presentation">
-            <router-link v-if="isLoggedIn" to="/arts">Alta de Artes</router-link> 
+            <router-link v-if="isLoggedIn" to="/arts">Alta de Artes</router-link>
           </li>
           <li role="presentation">
             <router-link v-if="isLoggedIn" to="/cards">Configurar Bines</router-link>
           </li>
           <li role="presentation">
-            <a @v-if="isLoggedIn" click="logout">Logout</a>
+            <a @v-if="isLoggedIn" @click="logout">Logout</a>
           </li>
       </ul>
     </div>
