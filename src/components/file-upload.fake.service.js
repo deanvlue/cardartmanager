@@ -14,6 +14,32 @@ function upload(formData){
 
 function getImage(file){
     return new Promise((resolve, reject) =>{
-        const fReader = new FileReader()
+        const fReader = new FileReader();
+        const img = document.createElement('img');
+
+        fReader.onload = () =>{
+            img.src = fReader.result;
+            resolve(getBase64Image(img));
+        }
+        console.log(file.type);
+        fReader.readAsDataURL(file);
     })
 }
+
+
+function getBase64Image(img){
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    console.log(img)
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img,0,0);
+
+    //const dataURL = canvas.toDataURL('image/png');
+    const dataURL = img.src;
+    console.log(dataURL);
+    return dataURL;
+}
+
+export {upload}

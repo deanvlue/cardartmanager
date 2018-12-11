@@ -3,15 +3,35 @@
     <div class="container">
       <!-- upload -->
       <form enctype="multipart/form-data" novalidate v-if="isInitial || isSaving">
-        <h1>Subir imágenes de Arte</h1>
+        <h1>Subir Artes</h1>
         <div class="dropbox">
-          <input type="file" multiple :name="uploadFieldName" :disabled="isSaving"
+          <input type="file" :name="uploadFieldName" :disabled="isSaving"
           @change="filesChange($event.target.name, $event.target.files); fileCount = $event.target.files.length"
           accept="image/*" class="input-file">
           <p v-if="isInitial">Arrastra tu imagen a este área</p>
           <p v-if="isSaving">Subiendo archivo</p>
         </div>
       </form>
+           <!--SUCCESS-->
+          <div v-if="isSuccess">
+            <h2>Uploaded {{ uploadedFiles.length }} file(s) successfully.</h2>
+            <p>
+              <a href="javascript:void(0)" @click="reset()">Upload again</a>
+            </p>
+            <ul class="list-unstyled">
+              <li v-for="item in uploadedFiles" v-bind:key="item.data">
+                <img :src="item.data" class="img-responsive img-thumbnail" :alt="item.filename">
+              </li>
+            </ul>
+          </div>
+          <!--FAILED-->
+            <div v-if="isFailed">
+              <h2>Uploaded failed.</h2>
+              <p>
+                <a href="javascript:void(0)" @click="reset()">Try again</a>
+              </p>
+              <pre>{{ uploadError }}</pre>
+            </div>
     </div>
   </div>
 </template>
@@ -20,6 +40,8 @@
 /* eslint-disable */
 
 import {upload} from './file-upload.service'
+//import {upload} from './file-upload.fake.service'
+import {wait} from './utils'
 
 const STATUS_INITIAL = 0, STATUS_SAVING=1, STATUS_SUCCESS=2, STATUS_FAILED=3;
 export default {
@@ -30,7 +52,7 @@ export default {
       uploadedFiles:[],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: 'arts'
+      uploadFieldName: 'artes'
     }
   },
   computed: {
@@ -60,13 +82,14 @@ export default {
       this.currentStatus = STATUS_SAVING;
 
       upload(formData)
+      .then(wait(1500))
       .then(x=>{
         this.uploadedFiles = [].concat(x);
-        this.currentStatus = STATUS_SUCCESS
+        this.currentStatus = STATUS_SUCCESS;
       })
       .catch(err=>{
         this.uploadError = err.response;
-        this.currentStatus = STATUS_FAILED
+        this.currentStatus = STATUS_FAILED;
       })
     },
     filesChange(fieldName, fileList){
@@ -74,7 +97,7 @@ export default {
 
       const formData = new FormData();
 
-      if(!fileList.lenght) return;
+      if(!fileList.length) return;
 
       // Anexa los archivos al formData
       Array
