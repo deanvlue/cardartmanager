@@ -140,7 +140,6 @@ a {
   background: rgb(223,221,221);
   color: #030303;
   min-height: 200px; /* elongate on height */
-  position: relative;
   cursor: pointer;
 }
 

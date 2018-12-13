@@ -1,10 +1,14 @@
 <template>
   <div class="container">
-    <ul class="list-unstyled">
-      <li v-for="art in arts" v-bind:key="art.name">
-        <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name">
-      </li>
-    </ul>
+    <div v-if="arts.length < 1">
+      Cargando...
+    </div>
+    <div class="list-group">
+      <button @click="selectArt" :id="art.name" v-for="art in arts" v-bind:key="art.name" type="button" class="list-group-item list-group-item-action">
+        <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> | {{art.name}}
+      </button>
+    </div>
+    <pre>{{imageurl}}</pre>
   </div>
 </template>
 
@@ -21,6 +25,52 @@ export default {
     return {
       msg: "Aquí se suben las cards",
       arts: [],
+      selected_image: null,
+      imageurl :[] 
+    }
+  },
+  methods:{
+    selectArt(event){
+      //console.log(event.target.id)
+      this.selected_image = event.target.id
+      this.imageurl = [];
+      this.imageurls(event.target.id);
+
+    },
+    imageurls(artname){
+        const uri = 'https://stfnsbxcardart.blob.core.windows.net/cardsartssized/'
+        let imageurl =[];
+
+        const artSizes = [
+          "androidThumbXxhdpi",
+          "androidThumbXhdpi", 
+          "androidThumbHdpi", 
+          "androidThumbMdpi", 
+          "androidFullXxhdpi",
+          "androidFullXhdpi", 
+          "androidFullHdpi", 
+          "androidFullMdpi",
+          "iosLargeHighRes",
+          "iosLarge",
+          "iosThumbHighRes", 
+          "iosThumb",
+          "ImageStrip",
+          "ImageLarge",
+          "ImageMedium",
+          "ImageSmall",
+          "ImageIcon",
+        ].map((x)=>{
+          
+          //name = artname.split('.')
+          //console.log(name.length);
+
+          let imageconfig = {
+            imageType: x,
+            uri: `${uri}${artname.split(".")[0]}_${x}.${artname.split(".")[1]}`
+          }
+          
+          this.imageurl.push(imageconfig)
+      });
     }
   },
   mounted(){

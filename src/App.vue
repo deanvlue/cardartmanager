@@ -13,23 +13,23 @@
   </header>
     <div id="nav">
       <ul class="nav nav-tabs">
-        <li role="presentation">
-          <router-link to="/">Home</router-link>
+        <li class="nav-item">
+          <router-link to="/" class="nav-link">Home</router-link>
         </li>
-          <li role="presentation">
-            <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
+          <li class="nav-item">
+            <router-link class="nav-link" v-if="!isLoggedIn" to="/login">Login</router-link>
           </li>
-          <li role="presentation">
-            <router-link v-if="isLoggedIn" to="/arts">Alta de Artes</router-link>
+          <li class="nav-item">
+            <router-link class="nav-link" v-if="isLoggedIn" to="/arts">Alta de Artes</router-link>
           </li>
-          <li role="presentation">
-            <router-link v-if="isLoggedIn" to="/cards">Configurar Bines</router-link>
+          <li class="nav-item">
+            <router-link class="nav-link" v-if="isLoggedIn" to="/cards">Configurar Bines</router-link>
           </li>
-          <li role="presentation">
-            <router-link v-if="isLoggedIn" to="/listCards">Lista de Tarjetas</router-link>
+          <li class="nav-item">
+            <router-link class="nav-link" v-if="isLoggedIn" to="/listCards">Lista de Tarjetas</router-link>
           </li>
-          <li role="presentation">
-            <a v-if="isLoggedIn" @click="logout">Logout</a>
+          <li class="nav-item">
+            <a class="nav-link" v-if="isLoggedIn" @click="logout">Logout</a>
           </li>
       </ul>
     </div>
