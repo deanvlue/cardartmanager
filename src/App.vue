@@ -26,6 +26,9 @@
             <router-link v-if="isLoggedIn" to="/cards">Configurar Bines</router-link>
           </li>
           <li role="presentation">
+            <router-link v-if="isLoggedIn" to="/listCards">Lista de Tarjetas</router-link>
+          </li>
+          <li role="presentation">
             <a v-if="isLoggedIn" @click="logout">Logout</a>
           </li>
       </ul>
