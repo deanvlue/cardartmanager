@@ -31,3 +31,5 @@ The backend connects to an azure function to post the new images and create the 
 
 
 
+added localgit
+https://proyectostidev@as-sbxcardmanager-test.scm.azurewebsites.net:443/as-sbxcardmanager.git
