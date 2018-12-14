@@ -1,14 +1,6 @@
 <template>
   <div class="container">
-    <div v-if="arts.length < 1">
-      Cargando...
-    </div>
-    <div class="list-group">
-      <button @click="selectArt" :id="art.name" v-for="art in arts" v-bind:key="art.name" type="button" class="list-group-item list-group-item-action">
-        <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> | {{art.name}}
-      </button>
-    </div>
-    <pre>{{imageurl}}</pre>
+    <pre>{{cards}}</pre>
   </div>
 </template>
 
@@ -16,72 +8,47 @@
 /* eslint-disable */
 
 import * as axios from 'axios';
+import {getAuthorizationTokenUsingMasterKey} from '../util/generateKey'
 
-const BASE_URL = 'https://fnsbxcardart.azurewebsites.net/api/GetArts'
+const BASE_URL = 'https://bd-sbxcardart01.documents.azure.com/dbs/bdsbxcardartdev/colls/colcardartdev/docs'
 
 export default {
   name: 'listCards',
   data () {
     return {
-      msg: "Aquí se suben las cards",
-      arts: [],
-      selected_image: null,
-      imageurl :[] 
+      cards: null
     }
   },
   methods:{
-    selectArt(event){
-      //console.log(event.target.id)
-      this.selected_image = event.target.id
-      this.imageurl = [];
-      this.imageurls(event.target.id);
-
-    },
-    imageurls(artname){
-        const uri = 'https://stfnsbxcardart.blob.core.windows.net/cardsartssized/'
-        let imageurl =[];
-
-        const artSizes = [
-          "androidThumbXxhdpi",
-          "androidThumbXhdpi", 
-          "androidThumbHdpi", 
-          "androidThumbMdpi", 
-          "androidFullXxhdpi",
-          "androidFullXhdpi", 
-          "androidFullHdpi", 
-          "androidFullMdpi",
-          "iosLargeHighRes",
-          "iosLarge",
-          "iosThumbHighRes", 
-          "iosThumb",
-          "ImageStrip",
-          "ImageLarge",
-          "ImageMedium",
-          "ImageSmall",
-          "ImageIcon",
-        ].map((x)=>{
-          
-          //name = artname.split('.')
-          //console.log(name.length);
-
-          let imageconfig = {
-            imageType: x,
-            uri: `${uri}${artname.split(".")[0]}_${x}.${artname.split(".")[1]}`
-          }
-          
-          this.imageurl.push(imageconfig)
-      });
-    }
+    getCards(){
+      const verb = "GET",
+            resourceType = "docs",
+            resourceId="dbs/bdsbxcardartdev/colls/colcardartdev",
+            masterKey = "mRrSShNPTDvMhKEaUr3quO8BCBHAA025xEam7MafIUBmEOM77abHoFYIaYPBTgrjYvg445Pnnf6nB4DAPaXa7w==",
+            fecha = new Date().toUTCString(),
+            auth_token= getAuthorizationTokenUsingMasterKey(verb, resourceType, resourceId, fecha, masterKey);
+      
+      let config ={
+        headers:{
+          'authorization': auth_token,
+          'x-ms-version': '2015-12-16',
+          'Accept': 'application/json',
+          'x-ms-date': fecha,
+          'Access-Control-Allow-Origin':'*'
+        }
+      }
+        axios.get(BASE_URL, config)
+        .then((res)=>{
+          //console.log(res.data.arts)
+          this.cards = res
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+      }
   },
   mounted(){
-    axios.get(BASE_URL)
-    .then((res)=>{
-      //console.log(res.data.arts)
-      this.arts = res.data.arts;
-    })
-    .catch(err=>{
-      console.log(err)
-    })
+    this.getCards()
   }
 }
 </script>
