@@ -6,6 +6,8 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+const LOGIN_URL ='https://as-sbxcardartapidev.azurewebsites.net/login'
+
 export default new Vuex.Store({
     state:{
         status:'',
@@ -38,7 +40,7 @@ export default new Vuex.Store({
             return new Promise((resolve, reject)=>{
                 commit('auth_request')
                 //axios.post('http://localhost:3000/login', user)
-                axios({url: 'http://localhost:3000/login', data: user, method: 'POST'})
+                axios({url: LOGIN_URL, data: user, method: 'POST'})
                 .then(resp=>{
                     const token = resp.data.token
                     //console.log(resp.data)
