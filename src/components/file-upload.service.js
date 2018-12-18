@@ -29,7 +29,7 @@ function getImage(file){
             img.src = fReader.result;
             resolve(getBase64Image(img));
         }
-        console.log(file.type);
+        //console.log(file.type);
         fReader.readAsDataURL(file);
     })
 }
@@ -39,14 +39,14 @@ function getBase64Image(img){
     const canvas = document.createElement('canvas');
     canvas.width = img.width;
     canvas.height = img.height;
-    console.log(img)
+    //console.log(img)
 
     const ctx = canvas.getContext('2d');
     ctx.drawImage(img,0,0);
 
     //const dataURL = canvas.toDataURL('image/png');
     const dataURL = img.src;
-    console.log(dataURL);
+    //console.log(dataURL);
     return dataURL;
 }
 
