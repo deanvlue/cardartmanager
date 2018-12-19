@@ -23,9 +23,6 @@
             <router-link class="nav-link" v-if="isLoggedIn" to="/arts">Alta de Artes</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" v-if="isLoggedIn" to="/cards">Configurar Bines</router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" v-if="isLoggedIn" to="/listCards">Lista de Tarjetas</router-link>
           </li>
           <li class="nav-item">

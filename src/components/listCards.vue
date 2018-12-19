@@ -1,6 +1,36 @@
 <template>
   <div class="container">
-    <pre>{{cards}}</pre>
+    <div class="row">
+      <div class="col-12">
+      </div>
+    </div>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <th colspan="4"><h3>Listado de tarjetas</h3></th>
+        <th colspan="1"> <a  href="/cards" class="btn btn-primary btn-green"> (+) Agregar tarjeta</a></th>
+      </thead>
+      <thead class="thead-dark">
+        <th scope="col">Promo</th>
+        <th scope="col">Bin Inicial</th>
+        <th scope="col">Bin Final</th>
+        <th scope="col">Arte</th>
+        <th scope="col">Editar</th>
+      </thead>
+      <tbody>
+        <tr v-for="card in cards" v-bind:key="card._id">
+          <td>{{card.promo}}</td>
+          <td>{{card.inicialbin}}</td>
+          <td>{{card.finalbin}}</td>
+          <td><img class="img-thumbnail" :src="card.imageurl[16].uri" alt=""></td>
+          <td>
+            <a href="#"> Editar</a>
+            <a href="#"> Guardar</a>
+            <a href="#"> Borrar</a>
+            <a href="#"> Probar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -8,9 +38,10 @@
 /* eslint-disable */
 
 import * as axios from 'axios';
-import {getAuthorizationTokenUsingMasterKey} from '../util/generateKey'
+//import {getAuthorizationTokenUsingMasterKey} from '../util/generateKey'
 
-const BASE_URL = 'https://bd-sbxcardart01.documents.azure.com/dbs/bdsbxcardartdev/colls/colcardartdev/docs'
+const BASE_URL ='https://as-sbxcardartapidev.azurewebsites.net/card'
+//const BASE_URL = 'https://bd-sbxcardart01.documents.azure.com/dbs/bdsbxcardartdev/colls/colcardartdev/docs'
 
 export default {
   name: 'listCards',
@@ -21,26 +52,10 @@ export default {
   },
   methods:{
     getCards(){
-      const verb = "GET",
-            resourceType = "docs",
-            resourceId="dbs/bdsbxcardartdev/colls/colcardartdev",
-            masterKey = "mRrSShNPTDvMhKEaUr3quO8BCBHAA025xEam7MafIUBmEOM77abHoFYIaYPBTgrjYvg445Pnnf6nB4DAPaXa7w==",
-            fecha = new Date().toUTCString(),
-            auth_token= getAuthorizationTokenUsingMasterKey(verb, resourceType, resourceId, fecha, masterKey);
-      
-      let config ={
-        headers:{
-          'authorization': auth_token,
-          'x-ms-version': '2015-12-16',
-          'Accept': 'application/json',
-          'x-ms-date': fecha,
-          'Access-Control-Allow-Origin':'*'
-        }
-      }
-        axios.get(BASE_URL, config)
+        axios.get(BASE_URL)
         .then((res)=>{
-          //console.log(res.data.arts)
-          this.cards = res
+          console.log(res.data)
+          this.cards = res.data
         })
         .catch(err=>{
           console.log(err)
@@ -85,6 +100,25 @@ a {
   border: 0;
 }
 .img-thumbnail{
-  width: 90px;
+  max-height: 90px;
+  max-width: auto;
+  padding: 0px;
+  margin: 0px;
+  
+}
+.btn-green{
+  outline: none;
+background-color: transparent;
+border: none;
+cursor: pointer;
+font-family: Lato-Light,sans-serif;
+height: 45px;
+padding: 0 30px;
+text-transform: uppercase;
+font-size: 14px;
+background:rgb(65,165,134);
+color: #fff;
+letter-spacing: 1px;
+transition: background-color .2s ease;
 }
 </style>
