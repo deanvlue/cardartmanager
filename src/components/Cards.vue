@@ -1,13 +1,25 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-sm-9">
+      <div class="col-md-8">
         <form class="form-cards" v-on:submit.prevent="submitData">
           <h2>Configuración de Bines</h2>
           <label for="inicialBin" class="">Bin Inicial</label>
+          <div v-if="inicialBinLen > 0" class="alert alert-warning" role="alert">
+            Faltan {{ inicialBinLen }} números
+          </div>
+          <div v-if="inicialBinLen === 0" class="alert alert-success" role="alert">
+            Completo!
+          </div>
           <input @blur="isValidBin"
            v-model="cardConfig.inicialbin" type="text" id="inicialBin" class="form-control" placeholder="6666666666666666" required autofocus>
           <label for="finalBin" class="">Bin Final</label>
+          <div v-if="finalBinLen > 0" class="alert alert-warning" role="alert">
+            Faltan {{ finalBinLen }} números
+          </div>
+          <div v-if="finalBinLen === 0" class="alert alert-success" role="alert">
+            Completo!
+          </div>
           <input @blur="isValidBin" v-model="cardConfig.finalbin" type="text" id="finalBin" class="form-control" placeholder="9999999999999999" required>
           <label for="promo" class="">Promo</label>
           <input v-model="cardConfig.promo" type="text" id="promo" class="form-control" placeholder="12345" required>
@@ -15,18 +27,21 @@
           <button class="btn btn-lg btn-primary btn-block">Guardar</button>
         </form>
       </div>
-      <div class="col-sm-3">
+      <div class="col-md-4">
         <div class="cardSelector">
             <div v-if="arts.length < 1">
               Cargando...
             </div>
             <div class="list-group">
+              <div class="list-group-item item-dark">
+                Selecciona un arte
+              </div>
               <button @click="selectArt" :id="art.name" v-for="art in arts" v-bind:key="art.name" type="button" class="list-group-item list-group-item-action">
-                <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> | {{art.name}}
+                <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> <br/> {{art.name}}
               </button>
             </div>
           </div>
-        </div>
+        </div> <!-- col-md-4 -->
     </div>
     <div class="row">
       <div class="col">
@@ -45,6 +60,8 @@
 import * as axios from 'axios';
 
 const BASE_URL = 'https://fnsbxcardart.azurewebsites.net/api/GetArts'
+const POST_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card';
+
 export default {
   name: 'Cards',
   data () {
@@ -63,6 +80,24 @@ export default {
     }
   },
   computed:{
+    validateFields(){
+      let binRegex = /[0-9]{16}/
+      let promoRegex = /[0-9]*/
+        return binRegex.test(this.cardConfig.inicialbin)
+          && binRegex.test(this.cardConfig.finalbin)
+          && promoRegex.test(this.cardConfig.promo)
+          && this.cardConfig.imageurl.length > 0
+    },
+    finalBinLen(){
+      if(this.cardConfig.finalbin !== null){
+        return 16 - this.cardConfig.finalbin.length
+      }
+    },
+    inicialBinLen(){
+      if(this.cardConfig.inicialbin !== null){
+        return 16 - this.cardConfig.inicialbin.length
+      }
+    }
   },
   methods:{
     selectArt(event){
@@ -110,18 +145,23 @@ export default {
         alert("Revisa tus Bines")
       }
     },
-    validateFields(){
-      let binRegex = /[0-9]{16}/
-      let promoRegex = /[0-9]*/
-        return binRegex.test(this.cardConfig.inicialbin)
-          && binRegex.test(this.cardConfig.finalbin)
-          && promoRegex.test(this.cardConfig.promo)
-          && this.cardConfig.imageurl.length > 0
-    },
     submitData(e){
       //e.preventDefault();
-      if( validateFields()){
+      if( this.validateFields){
           // Save to API
+          axios.post(POST_URL,
+          {
+            headers:{
+              'Content-Type': 'application/json'
+            }
+          }
+          , this.cardConfig)
+          .then((res)=>{
+            console.log("información guardada");
+          })
+          .catch((err)=>{
+            console.log(err);
+          })
         }else{
           // Error
           e.preventDefault();
@@ -180,5 +220,17 @@ a {
 .cardSelector{
   max-width: 300px;
   align-content: flex-start;
+  height: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.item-dark{
+  background-color: #333333;
+  color: #f3f3f3
+}
+
+input::placeholder{
+  color: #dddddd;
 }
 </style>
