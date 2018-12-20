@@ -60,7 +60,8 @@
 import * as axios from 'axios';
 
 const BASE_URL = 'https://fnsbxcardart.azurewebsites.net/api/GetArts'
-const POST_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card';
+//const POST_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card';
+const POST_URL = 'http://localhost:9090/card';
 
 export default {
   name: 'Cards',
@@ -149,15 +150,13 @@ export default {
       //e.preventDefault();
       if( this.validateFields){
           // Save to API
-          axios.post(POST_URL,
-          {
-            headers:{
-              'Content-Type': 'application/json'
-            }
-          }
-          , this.cardConfig)
+          console.log(this.cardConfig)
+          axios.post(POST_URL, this.cardConfig)
           .then((res)=>{
-            console.log("información guardada");
+            
+            //console.log("información guardada");
+            alert("Información Salvada")
+            this.$router.push('/listCards');            
           })
           .catch((err)=>{
             console.log(err);
