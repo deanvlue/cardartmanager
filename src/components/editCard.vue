@@ -1,9 +1,25 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
+      <!-- Seleccionador de tarjetas -->
+      <div class="col-md-6">
+        <div class="cardSelector">
+            <div v-if="arts.length < 1">
+              Cargando...
+            </div>
+            <div class="list-group">
+              <div class="list-group-item item-dark">
+                Selecciona un arte
+              </div>
+              <button @click="selectArt" :id="art.name" v-for="art in arts" v-bind:key="art.name" type="button" class="list-group-item list-group-item-action">
+                <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> <br/> {{art.name}}
+              </button>
+            </div>
+          </div>
+        </div> <!-- FIN de SELECCIONADOR DE TARJETAS col-md-4 -->
+      <div class="col-md-6">
         <form class="form-cards" v-on:submit.prevent="submitData">
-          <h2>Configuración de Bines</h2>
+          <h2>Configuración de Bines {{ $route.params.cardPromo }}</h2>
           <label for="inicialBin" class="">Bin Inicial</label>
           <div v-if="inicialBinLen > 0" class="alert alert-warning" role="alert">
             Faltan {{ inicialBinLen }} números
@@ -27,21 +43,6 @@
           <button class="btn btn-lg btn-primary btn-block">Guardar</button>
         </form>
       </div>
-      <div class="col-md-4">
-        <div class="cardSelector">
-            <div v-if="arts.length < 1">
-              Cargando...
-            </div>
-            <div class="list-group">
-              <div class="list-group-item item-dark">
-                Selecciona un arte
-              </div>
-              <button @click="selectArt" :id="art.name" v-for="art in arts" v-bind:key="art.name" type="button" class="list-group-item list-group-item-action">
-                <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> <br/> {{art.name}}
-              </button>
-            </div>
-          </div>
-        </div> <!-- col-md-4 -->
     </div>
     <!--<div class="row">
       <div class="col">

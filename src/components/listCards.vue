@@ -23,10 +23,8 @@
           <td>{{card.finalbin}}</td>
           <td><img class="img-thumbnail" :src="card.imageurl[16].uri" alt=""></td>
           <td>
-            <a href="#"> Editar</a>
-            <a href="#"> Guardar</a>
-            <a href="#"> Borrar</a>
-            <a href="#"> Probar</a>
+            <b-button :href="'/editCard/'+ card.promo" class="btn btn-primary btn-green"><i class="fas fa-edit"></i></b-button>
+            <button class="btn btn-primary btn-danger"><i class="fas fa-trash"></i></button>
           </td>
         </tr>
       </tbody>
@@ -113,7 +111,8 @@ border: none;
 cursor: pointer;
 font-family: Lato-Light,sans-serif;
 height: 45px;
-padding: 0 30px;
+padding: 20px;
+padding-top: 10px;
 text-transform: uppercase;
 font-size: 14px;
 background:rgb(65,165,134);

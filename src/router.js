@@ -7,6 +7,7 @@ import Login from './components/Login.vue'
 import Arts from './components/Arts.vue'
 import Cards from './components/Cards.vue'
 import ListCards from './components/listCards.vue'
+import EditCard from './components/editCard.vue'
 
 import Home from './components/HelloWorld.vue'
 
@@ -46,6 +47,14 @@ let router = new Router({
             path: '/listCards',
             name:'listCards',
             component: ListCards,
+            meta:{
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/editCard/:cardPromo',
+            name:'editCard',
+            component: EditCard,
             meta:{
                 requiresAuth: true
             }
