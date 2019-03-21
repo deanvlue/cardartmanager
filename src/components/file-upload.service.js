@@ -7,12 +7,22 @@ const BASE_URL = 'https://fnsbxcardart.azurewebsites.net/api/CardArtPost'
 
 function upload(formData){
     const artes = formData.getAll('artes');
-    const promises = artes.map((x)=>getImage(x)
-    .then(img => (
-        axios.post(BASE_URL,{
-        filename: x.name,
-        data: img
-    }))))
+    const promises = artes.map(
+        (x)=>getImage(x)
+        .then(img => {
+            const regex = /\s/g;
+            const subs = "_";
+            let artName = x.name.replace(regex,subs);
+
+            axios.post(BASE_URL,{
+                filename: artName,
+                data: img
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        })
+    );
 
     return Promise.all(promises)
  /*   return axios.post(BASE_URL, formData)

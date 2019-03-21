@@ -23,7 +23,7 @@
           <td>{{card.finalbin}}</td>
           <td><img class="img-thumbnail" :src="card.imageurl[16].uri" alt=""></td>
           <td>
-            <b-button :href="'/editCard/'+ card.promo" class="btn btn-primary btn-green"><i class="fas fa-edit"></i></b-button>
+            <b-button :href="'/editCard/'+ card.inicialbin" class="btn btn-primary btn-green"><i class="fas fa-edit"></i></b-button>
             <button class="btn btn-primary btn-danger"><i class="fas fa-trash"></i></button>
           </td>
         </tr>

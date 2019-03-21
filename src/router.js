@@ -52,7 +52,7 @@ let router = new Router({
             }
         },
         {
-            path: '/editCard/:cardPromo',
+            path: '/editCard/:cardid',
             name:'editCard',
             component: EditCard,
             meta:{
