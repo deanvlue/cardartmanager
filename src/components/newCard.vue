@@ -1,7 +1,23 @@
 <template>
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
+      <!-- Seleccionador de tarjetas -->
+      <div class="col-md-6">
+        <div class="cardSelector">
+            <div v-if="arts.length < 1">
+              Cargando...
+            </div>
+            <div class="list-group">
+              <div class="list-group-item item-dark">
+                Selecciona un arte
+              </div>
+              <button @click="selectArt(art, index)" :id="art.name" v-for="(art, index) in arts" v-bind:key="art.name" type="button" class="list-group-item list-group-item-action" :class="{'active': activeIndex === index}">
+                <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> <br/> {{art.name}}
+              </button>
+            </div>
+          </div>
+        </div> <!-- FIN de SELECCIONADOR DE TARJETAS col-md-4 -->
+      <div class="col-md-6">
         <form class="form-cards" v-on:submit.prevent="submitData">
           <h2>Configuración de Bines</h2>
           <label for="inicialBin" class="">Bin Inicial</label>
@@ -27,21 +43,6 @@
           <button class="btn btn-lg btn-primary btn-block">Guardar</button>
         </form>
       </div>
-      <div class="col-md-4">
-        <div class="cardSelector">
-            <div v-if="arts.length < 1">
-              Cargando...
-            </div>
-            <div class="list-group">
-              <div class="list-group-item item-dark">
-                Selecciona un arte
-              </div>
-              <button @click="selectArt" :id="art.name" v-for="art in arts" v-bind:key="art.name" type="button" class="list-group-item list-group-item-action">
-                <img :src="art.uri" class="img-responsive img-thumbnail" :alt="art.name"> <br/> {{art.name}}
-              </button>
-            </div>
-          </div>
-        </div> <!-- col-md-4 -->
     </div>
     <!--<div class="row">
       <div class="col">
@@ -69,6 +70,7 @@ export default {
     return {
       msg: "Aquí se suben las cards",
       arts:[],
+      activeIndex: 0,
       selectedImage: null,
       cardConfig: {
         inicialbin: null,
@@ -101,11 +103,13 @@ export default {
     }
   },
   methods:{
-    selectArt(event){
+    selectArt(art, index){
+      this.activeIndex = index;
+      //console.log(this.activeIndex)
       //console.log(event.target.id)
-      this.selected_image = event.target.id
+      this.selected_image = art.name
       this.cardConfig.imageurl = [];
-      this.imageurls(event.target.id);
+      this.imageurls(this.selected_image);
 
     },
     imageurls(artname){
@@ -153,7 +157,6 @@ export default {
           console.log(this.cardConfig)
           axios.post(POST_URL, this.cardConfig)
           .then((res)=>{
-            
             //console.log("información guardada");
             alert("Información Salvada")
             this.$router.push('/listCards');            
@@ -176,7 +179,7 @@ export default {
     })
     .catch(err=>{
       console.log(err)
-    })
+    });
   }
 }
 </script>
@@ -198,7 +201,7 @@ a {
   color: #42b983;
 }
 .form-cards{
-  max-width: 400px;
+  max-width: 80%;
   padding: 15px;
   margin: 0 auto;
 }
@@ -213,20 +216,27 @@ a {
   border: 0;
 }
 .img-thumbnail{
-  width: 90px;
+  /*width: 190px;*/
+  max-width: 60%;
+
 }
 
 .cardSelector{
-  max-width: 300px;
-  align-content: flex-start;
-  height: 300px;
-  max-height: 300px;
+
+  max-width: 90%;
+  /*align-content: flex-start;*/
+  height: 550px;
+  max-height: 500px;
   overflow-y: scroll;
 }
 
 .item-dark{
   background-color: #333333;
   color: #f3f3f3
+}
+
+.active{
+  background: #666;
 }
 
 input::placeholder{

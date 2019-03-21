@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -24,13 +24,24 @@
           <td><img class="img-thumbnail" :src="card.imageurl[16].uri" alt=""></td>
           <td>
             <b-button :href="'/editCard/'+ card.inicialbin" class="btn btn-primary btn-green"><i class="fas fa-edit"></i></b-button>
-            <button class="btn btn-primary btn-danger"><i class="fas fa-trash"></i></button>
+            <button class="btn btn-primary btn-danger" @click="removeCard(card._id)"><i class="fas fa-trash"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-</template>
+  </template>
+<!--
+  <div class="modal">
+    <div class="modal-window">
+      <p>Está seguro de querer eliminar el arte para la promoción {{ card.promo }} de tarjeta?</p>
+      <div class="actions">
+        <button class="cancel" @click="onCancel">Cancelar</button>
+        <button class="accept" @click="onAccept">Aceptar</button>
+      </div>
+    </div>
+  </div>
+  -->
 
 <script>
 /* eslint-disable */
@@ -58,7 +69,11 @@ export default {
         .catch(err=>{
           console.log(err)
         })
-      }
+      },
+    removeCard(card){
+      alert(card);
+    }
+    
   },
   mounted(){
     this.getCards()

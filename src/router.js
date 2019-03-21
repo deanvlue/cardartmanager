@@ -5,7 +5,7 @@ import store from './store'
 import Login from './components/Login.vue'
 //import Secure from './components/Secure.vue'
 import Arts from './components/Arts.vue'
-import Cards from './components/Cards.vue'
+import NewCard from './components/newCard.vue'
 import ListCards from './components/listCards.vue'
 import EditCard from './components/editCard.vue'
 
@@ -37,8 +37,8 @@ let router = new Router({
         },
         {
             path: '/cards',
-            name:'cards',
-            component: Cards,
+            name:'newCard',
+            component: NewCard,
             meta:{
                 requiresAuth: true
             }
