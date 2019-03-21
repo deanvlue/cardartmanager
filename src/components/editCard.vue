@@ -44,7 +44,7 @@
         </form>
       </div>
     </div>
-    <div class="row">
+    <!--<div class="row">
       <div class="col">
         <pre>
           <code>
@@ -52,7 +52,7 @@
           </code>
         </pre>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -105,11 +105,11 @@ export default {
   methods:{
     selectArt(art, index){
       this.activeIndex = index;
-      console.log(this.activeIndex)
-      console.log(event.target.id)
+      //console.log(this.activeIndex)
+      //console.log(event.target.id)
       this.selected_image = art.name
       this.cardConfig.imageurl = [];
-      this.imageurls(event.target.id);
+      this.imageurls(this.selected_image);
 
     },
     imageurls(artname){
@@ -155,7 +155,7 @@ export default {
       if( this.validateFields){
           // Save to API
           console.log(this.cardConfig)
-          axios.post(POST_URL, this.cardConfig)
+          axios.put(POST_URL, this.cardConfig)
           .then((res)=>{
             //console.log("información guardada");
             alert("Información Actualizada")
@@ -182,7 +182,6 @@ export default {
     });
 
     var cardURL =POST_URL+"/"+ this.$route.params.cardid
-    console.log(cardURL);
     axios.get(cardURL)
       .then((res)=>{
         //console.log(res)
