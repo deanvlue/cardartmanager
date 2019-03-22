@@ -40,11 +40,19 @@
           <label for="promo" class="">Promo</label>
           <input v-model="cardConfig.promo" type="text" id="promo" class="form-control" placeholder="12345" required>
           <br>
-          <button class="btn btn-lg btn-primary btn-block">Guardar</button>
+          <div class="row">
+            <div class="col-md-6">
+              <button class="btn btn-lg btn-danger btn-block">Cancelar</button>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-lg btn-primary btn-block">Guardar</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
-    <!--<div class="row">
+    <!--
+    <div class="row">
       <div class="col">
         <pre>
           <code>
@@ -62,7 +70,9 @@ import * as axios from 'axios';
 
 const BASE_URL = 'https://fnsbxcardart.azurewebsites.net/api/GetArts'
 const POST_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card';
+const GET_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card_id';
 //const POST_URL = 'http://localhost:9090/card';
+//const GET_URL = 'http://localhost:9090/card_id';
 
 export default {
   name: 'Cards',
@@ -73,6 +83,7 @@ export default {
       activeIndex: 0,
       selectedImage: null,
       cardConfig: {
+        id:null,
         inicialbin: null,
         finalbin: null,
         promo: null,
@@ -155,8 +166,9 @@ export default {
       if( this.validateFields){
           // Save to API
           console.log(this.cardConfig)
-          axios.put(POST_URL, this.cardConfig)
+          axios.put(POST_URL+'/'+this.cardConfig.id, this.cardConfig)
           .then((res)=>{
+            console.log(res);
             //console.log("información guardada");
             alert("Información Actualizada")
             this.$router.push('/listCards');            
@@ -169,9 +181,13 @@ export default {
           e.preventDefault();
           alert("Hay errores en la información, favor de validar")
         }
+    },
+    cancelEdit(){
+      this.$router.push('/listCards');
     }
   },
   mounted(){
+    // GET Arts
     axios.get(BASE_URL)
     .then((res)=>{
       //console.log(res.data.arts)
@@ -181,10 +197,12 @@ export default {
       console.log(err)
     });
 
-    var cardURL =POST_URL+"/"+ this.$route.params.cardid
+    // Get car to update
+    var cardURL =GET_URL+"/"+ this.$route.params.cardid
     axios.get(cardURL)
       .then((res)=>{
-        //console.log(res)
+        console.log(res)
+        this.cardConfig.id = res.data.id;
         this.cardConfig.inicialbin  = res.data.inicialbin;
         this.cardConfig.finalbin    = res.data.finalbin;
         this.cardConfig.promo  = res.data.promo;

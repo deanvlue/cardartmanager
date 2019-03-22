@@ -18,12 +18,13 @@
       </thead>
       <tbody>
         <tr v-for="card in cards" v-bind:key="card._id">
-          <td>{{card.promo}}</td>
+          <td>{{card.promo}} <br/>
+         </td>
           <td>{{card.inicialbin}}</td>
           <td>{{card.finalbin}}</td>
           <td><img class="img-thumbnail" :src="card.imageurl[16].uri" alt=""></td>
           <td>
-            <b-button :href="'/editCard/'+ card.inicialbin" class="btn btn-primary btn-green"><i class="fas fa-edit"></i></b-button>
+            <b-button :href="'/editCard/'+ card._id" class="btn btn-primary btn-green"><i class="fas fa-edit"></i></b-button>
             <button class="btn btn-primary btn-danger" @click="removeCard(card._id)"><i class="fas fa-trash"></i></button>
           </td>
         </tr>
@@ -50,6 +51,7 @@ import * as axios from 'axios';
 //import {getAuthorizationTokenUsingMasterKey} from '../util/generateKey'
 
 const BASE_URL ='https://as-sbxcardartapidev.azurewebsites.net/card'
+//const BASE_URL ='http://localhost:9090/card';
 //const BASE_URL = 'https://bd-sbxcardart01.documents.azure.com/dbs/bdsbxcardartdev/colls/colcardartdev/docs'
 
 export default {
@@ -63,15 +65,27 @@ export default {
     getCards(){
         axios.get(BASE_URL)
         .then((res)=>{
-          console.log(res.data)
+          //console.log(res.data)
           this.cards = res.data
         })
         .catch(err=>{
           console.log(err)
         })
-      },
+    },
     removeCard(card){
-      alert(card);
+      this.$dialog
+        .confirm('Estas seguro que deseas borrar esta tarjeta?')
+        .then(dialog=>{
+          axios.delete(BASE_URL+"/"+card)
+          .then(res=>{
+              //console.log(res)
+              this.getCards()          
+          })
+          console.log('Se borra!')
+        })
+        .catch(()=>{
+          console.log("Operación cancelada")
+        })
     }
     
   },
