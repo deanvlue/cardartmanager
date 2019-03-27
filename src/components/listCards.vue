@@ -100,7 +100,7 @@ export default {
   mounted(){
     this.getCards()
 
-    this.environment = process.env.NODE_ENV
+    this.environment = process.env
   }
 }
 </script>
