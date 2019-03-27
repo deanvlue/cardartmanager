@@ -1,6 +1,11 @@
   <template>
   <div class="container">
     <div class="row">
+      <pre>
+        {{ environment }}
+      </pre>
+    </div>
+    <div class="row">
       <div class="col-12">
       </div>
     </div>
@@ -50,6 +55,8 @@
 import * as axios from 'axios';
 //import {getAuthorizationTokenUsingMasterKey} from '../util/generateKey'
 
+
+
 const BASE_URL ='https://as-sbxcardartapidev.azurewebsites.net/card'
 //const BASE_URL ='http://localhost:9090/card';
 //const BASE_URL = 'https://bd-sbxcardart01.documents.azure.com/dbs/bdsbxcardartdev/colls/colcardartdev/docs'
@@ -58,7 +65,8 @@ export default {
   name: 'listCards',
   data () {
     return {
-      cards: null
+      cards: null,
+      environment:null,
     }
   },
   methods:{
@@ -91,6 +99,8 @@ export default {
   },
   mounted(){
     this.getCards()
+
+    this.environment = process.env.NODE_ENV
   }
 }
 </script>
