@@ -61,7 +61,7 @@
 import * as axios from 'axios';
 
 const BASE_URL = 'https://fnsbxcardart.azurewebsites.net/api/GetArts'
-const POST_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card';
+const POST_URL = process.env.BASE_URL +'/card';
 //const POST_URL = 'http://localhost:9090/card';
 
 export default {

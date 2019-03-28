@@ -42,7 +42,7 @@
           <br>
           <div class="row">
             <div class="col-md-6">
-              <button class="btn btn-lg btn-danger btn-block">Cancelar</button>
+              <button class="btn btn-lg btn-danger btn-block" @click.prevent="cancelEdit">Cancelar</button>
             </div>
             <div class="col-md-6">
               <button class="btn btn-lg btn-primary btn-block">Guardar</button>
@@ -68,9 +68,10 @@
 /* eslint-disable */
 import * as axios from 'axios';
 
+const EDIT_URL = process.env.BASE_URL;
 const BASE_URL = 'https://fnsbxcardart.azurewebsites.net/api/GetArts'
-const POST_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card';
-const GET_URL = 'https://as-sbxcardartapidev.azurewebsites.net/card_id';
+const POST_URL = EDIT_URL + '/card';
+const GET_URL = EDIT_URL + '/card_id';
 //const POST_URL = 'http://localhost:9090/card';
 //const GET_URL = 'http://localhost:9090/card_id';
 
