@@ -66,7 +66,10 @@ export default {
   data () {
     return {
       cards: null,
-      environment:null,
+      environment:{
+        NODE_ENV: null,
+        BASE_URL: null,
+      }
     }
   },
   methods:{
@@ -99,8 +102,8 @@ export default {
   },
   mounted(){
     this.getCards()
-
-    this.environment = process.env
+    this.environment.BASE_URL = process.env.BASE_URL
+    console.log(process.env)
   }
 }
 </script>
