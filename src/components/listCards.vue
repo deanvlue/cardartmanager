@@ -104,6 +104,7 @@ export default {
     this.getCards()
     this.environment.BASE_URL = process.env.BASE_URL
     console.log(process.env)
+    console.log(this.environment)
   }
 }
 </script>
