@@ -57,7 +57,8 @@ import * as axios from 'axios';
 
 
 
-const BASE_URL ='https://as-sbxcardartapidev.azurewebsites.net/card'
+//const BASE_URL ='https://as-sbxcardartapidev.azurewebsites.net/card'
+const BASE_URL = process.env.BASE_URL + '/card'
 //const BASE_URL ='http://localhost:9090/card';
 //const BASE_URL = 'https://bd-sbxcardart01.documents.azure.com/dbs/bdsbxcardartdev/colls/colcardartdev/docs'
 
@@ -66,10 +67,6 @@ export default {
   data () {
     return {
       cards: null,
-      environment:{
-        NODE_ENV: null,
-        BASE_URL: null,
-      }
     }
   },
   methods:{
@@ -102,9 +99,6 @@ export default {
   },
   mounted(){
     this.getCards()
-    this.environment.BASE_URL = process.env.BASE_URL
-    console.log(process.env)
-    console.log(this.environment)
   }
 }
 </script>
