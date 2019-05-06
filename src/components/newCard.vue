@@ -155,6 +155,7 @@ export default {
       if( this.validateFields){
           // Save to API
           console.log(this.cardConfig)
+          console.log(POST_URL)
           axios.post(POST_URL, this.cardConfig)
           .then((res)=>{
             //console.log("información guardada");
